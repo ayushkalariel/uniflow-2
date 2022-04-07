@@ -54,8 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       "Welcome to Uniflow.",
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
-                            fontSize: 60,
-                          )),
+                        fontSize: 60,
+                      )),
                     ),
                   ),
                   Container(
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   width: 0.0, style: BorderStyle.none)),
                           focusedBorder: OutlineInputBorder(
                               borderSide:
-                              BorderSide(width: 2, color: Colors.black),
+                                  BorderSide(width: 2, color: Colors.black),
                               borderRadius: BorderRadius.circular(30))),
                     ),
                   ),
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   width: 0.0, style: BorderStyle.none)),
                           focusedBorder: OutlineInputBorder(
                               borderSide:
-                              BorderSide(width: 2, color: Colors.black),
+                                  BorderSide(width: 2, color: Colors.black),
                               borderRadius: BorderRadius.circular(30))),
                     ),
                   ),
@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         splashColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(30))),
+                                BorderRadius.all(Radius.circular(30))),
                         child: Text(
                           "Login",
                           style: TextStyle(color: Colors.white),
