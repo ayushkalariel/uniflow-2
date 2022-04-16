@@ -4,9 +4,34 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uniflow/attendance.dart';
 import 'package:uniflow/events.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'model/UserModel.dart';
 
-class dashboard extends StatelessWidget {
+class dashboard extends StatefulWidget {
   const dashboard({Key? key}) : super(key: key);
+  @override
+  _dashboardState createState() => _dashboardState();
+}
+
+class _dashboardState extends State<dashboard> {
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +44,7 @@ class dashboard extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(10),
-                  child: Text('John Doe',
+                  child: Text("${loggedInUser.FirstName}",
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                         fontSize: 26,
