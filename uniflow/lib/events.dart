@@ -63,7 +63,11 @@ class events extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const eventInfo()));
+                                      builder: (context) => eventInfo(
+                                            EventName: 'test',
+                                            eid: 'test',
+                                            imageUrl: 'test',
+                                          )));
                               print("presssed");
                             },
                             color: Colors.black,
