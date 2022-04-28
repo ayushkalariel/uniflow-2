@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: EdgeInsets.only(bottom: 150.0),
                       child: Text(
                         "Welcome to Uniflow.",
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.raleway(
                             textStyle: TextStyle(
                           fontSize: 60,
                         )),
