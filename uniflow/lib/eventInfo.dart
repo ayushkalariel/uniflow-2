@@ -7,6 +7,7 @@ import 'package:uniflow/events.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'model/UserModel.dart';
 
 class eventInfo extends StatefulWidget {
   String EventName;
@@ -21,6 +22,23 @@ class eventInfo extends StatefulWidget {
 }
 
 class _eventInfoState extends State<eventInfo> {
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
   String EventName;
   String eid;
   String imageUrl;
