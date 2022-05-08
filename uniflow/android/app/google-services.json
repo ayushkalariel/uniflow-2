@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "764237333628",
+    "project_id": "uniflow-git",
+    "storage_bucket": "uniflow-git.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764237333628:android:909910ac25cd7f5e6f75f9",
+        "android_client_info": {
+          "package_name": "com.example.uniflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "764237333628-hf8bdnmk7bp79gqt1n2ophqfkpp1enlb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXIJihTR5U13d-_L8ZNuxgRSEJkzro2DM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764237333628-hf8bdnmk7bp79gqt1n2ophqfkpp1enlb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
