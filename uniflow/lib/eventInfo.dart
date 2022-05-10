@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:uniflow/api/sheets/registration_sheets_api.dart';
 import 'package:uniflow/attendance.dart';
 import 'package:uniflow/events.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +25,12 @@ class eventInfo extends StatefulWidget {
 
 class _eventInfoState extends State<eventInfo> {
   final referenceDatabase = FirebaseDatabase.instance;
+  final registeredEvents1 = FirebaseFirestore.instance
+      .collection("users/POlXnGRhdDVYto5FapWhvGbOSDy2/registeredEvents");
+  final database = FirebaseDatabase.instance.ref();
   User? user = FirebaseAuth.instance.currentUser;
+  bool isactive = true;
+  String fname = "";
   UserModel loggedInUser = UserModel();
 
   @override
@@ -36,7 +42,29 @@ class _eventInfoState extends State<eventInfo> {
         .get()
         .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
+      fname = "${loggedInUser.FirstName}";
+      _activateListener(fname);
       setState(() {});
+    });
+  }
+
+  void _activateListener(String fname) {
+    database
+        .child(EventName + '/' + fname + '/registered')
+        .onValue
+        .listen((event) {
+      final String check = event.snapshot.value.toString();
+      setState(() {
+        if (check == "true") {
+          print(check);
+          print(EventName + '/' + fname + '/registered');
+          isactive = false;
+        } else {
+          print(check);
+          print(EventName + '/' + fname + '/registered');
+          isactive = true;
+        }
+      });
     });
   }
 
@@ -135,15 +163,23 @@ class _eventInfoState extends State<eventInfo> {
                       width: 400,
                       height: 60,
                       child: RaisedButton(
-                          onPressed: () {
-                            ref
-                                .child(EventName)
-                                .child('${loggedInUser.FirstName}')
-                                .set({
-                              'roll': "${loggedInUser.roll}",
-                              'class': "${loggedInUser.Class}"
-                            }).asStream();
-                          },
+                          onPressed: isactive
+                              ? () {
+                                  ref
+                                      .child(EventName)
+                                      .child('${loggedInUser.FirstName}')
+                                      .set({
+                                    'roll': "${loggedInUser.roll}",
+                                    'class': "${loggedInUser.Class}",
+                                    'registered': 'true'
+                                  }).asStream();
+                                  registeredEvents1.add({
+                                    'EventName': EventName,
+                                    'eid': eid,
+                                    'imageUrl': imageUrl
+                                  });
+                                }
+                              : null,
                           color: Colors.black,
                           splashColor: Colors.white,
                           shape: RoundedRectangleBorder(
