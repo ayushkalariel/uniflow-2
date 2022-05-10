@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -22,12 +23,12 @@ class eventInfo extends StatefulWidget {
 }
 
 class _eventInfoState extends State<eventInfo> {
+  final referenceDatabase = FirebaseDatabase.instance;
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     FirebaseFirestore.instance
         .collection("users")
@@ -44,8 +45,11 @@ class _eventInfoState extends State<eventInfo> {
   String imageUrl;
   _eventInfoState(
       {required this.EventName, required this.eid, required this.imageUrl});
+
   @override
   Widget build(BuildContext context) {
+    final ref = referenceDatabase.ref();
+    var ref2 = FirebaseDatabase().ref().child(EventName);
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
@@ -131,7 +135,15 @@ class _eventInfoState extends State<eventInfo> {
                       width: 400,
                       height: 60,
                       child: RaisedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            ref
+                                .child(EventName)
+                                .child('${loggedInUser.FirstName}')
+                                .set({
+                              'roll': "${loggedInUser.roll}",
+                              'class': "${loggedInUser.Class}"
+                            }).asStream();
+                          },
                           color: Colors.black,
                           splashColor: Colors.white,
                           shape: RoundedRectangleBorder(
