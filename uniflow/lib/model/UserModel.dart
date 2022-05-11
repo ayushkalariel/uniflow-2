@@ -4,8 +4,15 @@ class UserModel {
   String? Class;
   String? uid;
   int? roll;
+  int? numEvent;
 
-  UserModel({this.FirstName, this.LastName, this.Class, this.roll, this.uid});
+  UserModel(
+      {this.FirstName,
+      this.LastName,
+      this.Class,
+      this.roll,
+      this.uid,
+      this.numEvent});
 
   //to recieve data
   factory UserModel.fromMap(map) {
@@ -14,7 +21,8 @@ class UserModel {
         roll: map['roll'],
         FirstName: map['FirstName'],
         LastName: map['LastName'],
-        Class: map['Class']);
+        Class: map['Class'],
+        numEvent: map['numEvent']);
   }
 
   Map<String, dynamic> toMap() {
@@ -24,6 +32,7 @@ class UserModel {
       'LastName': LastName,
       'roll': roll,
       'Class': Class,
+      'numEvent': numEvent
     };
   }
 }

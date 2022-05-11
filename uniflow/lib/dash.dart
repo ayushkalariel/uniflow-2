@@ -7,6 +7,7 @@ import 'package:uniflow/events.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uniflow/timetable.dart';
 import 'model/UserModel.dart';
 
 class dashboard extends StatefulWidget {
@@ -17,6 +18,7 @@ class dashboard extends StatefulWidget {
 
 class _dashboardState extends State<dashboard> {
   User? user = FirebaseAuth.instance.currentUser;
+  String numEvent = "";
   UserModel loggedInUser = UserModel();
 
   @override
@@ -29,8 +31,18 @@ class _dashboardState extends State<dashboard> {
         .get()
         .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
+      numEvent = loggedInUser.numEvent.toString();
+      _activateListener(numEvent);
       setState(() {});
     });
+  }
+
+  void _activateListener(String numEvent) {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .snapshots()
+        .listen((value) => this.loggedInUser = UserModel.fromMap(value.data()));
   }
 
   @override
@@ -53,7 +65,7 @@ class _dashboardState extends State<dashboard> {
                         ))),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 180),
+                    padding: EdgeInsets.only(left: 260),
                     child: Icon(
                       Icons.notifications,
                       size: 30,
@@ -135,7 +147,7 @@ class _dashboardState extends State<dashboard> {
                             Container(
                               padding: EdgeInsets.only(top: 60),
                               child: Text(
-                                "5",
+                                loggedInUser.numEvent.toString(),
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 55),
                               ),
@@ -166,7 +178,7 @@ class _dashboardState extends State<dashboard> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const dashboard()));
+                              builder: (context) => const timetable()));
                       print("presssed");
                     },
                     color: Colors.black,

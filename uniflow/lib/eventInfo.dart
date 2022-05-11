@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +27,6 @@ class eventInfo extends StatefulWidget {
 
 class _eventInfoState extends State<eventInfo> {
   final referenceDatabase = FirebaseDatabase.instance;
-  final registeredEvents1 = FirebaseFirestore.instance
-      .collection("users/POlXnGRhdDVYto5FapWhvGbOSDy2/registeredEvents");
   final database = FirebaseDatabase.instance.ref();
   User? user = FirebaseAuth.instance.currentUser;
   bool isactive = true;
@@ -77,7 +77,6 @@ class _eventInfoState extends State<eventInfo> {
   @override
   Widget build(BuildContext context) {
     final ref = referenceDatabase.ref();
-    var ref2 = FirebaseDatabase().ref().child(EventName);
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
@@ -173,11 +172,7 @@ class _eventInfoState extends State<eventInfo> {
                                     'class': "${loggedInUser.Class}",
                                     'registered': 'true'
                                   }).asStream();
-                                  registeredEvents1.add({
-                                    'EventName': EventName,
-                                    'eid': eid,
-                                    'imageUrl': imageUrl
-                                  });
+                                  register();
                                 }
                               : null,
                           color: Colors.black,
@@ -200,5 +195,20 @@ class _eventInfoState extends State<eventInfo> {
         ],
       ),
     )));
+  }
+
+  void register() {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .collection("registeredEvents")
+        .add({'EventName': EventName, 'eid': eid, 'imageUrl': imageUrl});
+    if (loggedInUser.numEvent != null) {
+      var finalnum = loggedInUser.numEvent! + 1;
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(user!.uid)
+          .update({'numEvent': finalnum});
+    }
   }
 }

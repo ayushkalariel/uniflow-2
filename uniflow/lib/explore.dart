@@ -45,9 +45,7 @@ class explore extends StatelessWidget {
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData) {
-                      //return Center(child: Text("hello"));
-                    }
+                    if (!snapshot.hasData) {}
                     return ListView(
                       children: snapshot.data!.docs.map((document) {
                         return Container(
