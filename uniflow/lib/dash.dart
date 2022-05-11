@@ -199,7 +199,7 @@ class _dashboardState extends State<dashboard> {
                             alignment: Alignment.topLeft,
                             padding: EdgeInsets.fromLTRB(5, 10, 10, 0),
                             child: Text(
-                              "abc",
+                              "Project",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 40),
                             )),
@@ -207,7 +207,7 @@ class _dashboardState extends State<dashboard> {
                             alignment: Alignment.topLeft,
                             padding: EdgeInsets.fromLTRB(5, 10, 10, 0),
                             child: Text(
-                              "11 am - 12 pm",
+                              "10am - 11am",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                             )),

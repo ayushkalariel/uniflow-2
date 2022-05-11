@@ -25,10 +25,9 @@ class _timetableState extends State<timetable> with TickerProviderStateMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-          child: SingleChildScrollView(
         child: Column(children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 100.0),
+            padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 150.0),
             child: Row(
               children: [
                 Container(
@@ -72,7 +71,7 @@ class _timetableState extends State<timetable> with TickerProviderStateMixin {
           ),
           Container(
             width: double.maxFinite,
-            height: MediaQuery.of(context).size.height,
+            height: 500,
             child: TabBarView(controller: _tabController, children: [
               buildstructure("ttmonday"),
               buildstructure("tttuesday"),
@@ -83,7 +82,7 @@ class _timetableState extends State<timetable> with TickerProviderStateMixin {
             ]),
           )
         ]),
-      )),
+      ),
     );
   }
 
